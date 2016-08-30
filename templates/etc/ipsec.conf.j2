@@ -1,0 +1,67 @@
+# /etc/ipsec.conf - strongSwan IPsec configuration file
+
+config setup
+
+conn %default
+{% if ikelifetime != false %}
+  # How long the keying channel of a connection (ISAKMP or IKE SA) should last before being renegotiated.
+  ikelifetime={{ ikelifetime }}
+{% endif %}
+{% if lifetime != false %}
+  # How long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation to expiry.
+  lifetime={{ lifetime }}
+{% endif %}
+{% if margintime != false %}
+  # How long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation to expiry.
+  margintime={{ margintime }}
+{% endif %}
+{% if keyingtries != false %}
+  # How many attempts (a positive integer or %forever) should be made to negotiate a connection, or a replacement for one, before giving up (default 3).
+  keyingtries={{ keyingtries }}
+{% endif %}
+{% if authby != false %}
+  # How the two security gateways should authenticate each other
+  authby={{ authby }}
+{% endif %}
+{% if keyexchange != false %}
+  # Method of key exchange; which protocol should be used to initialize the connection.
+  keyexchange={{ keyexchange }}
+{% endif %}
+{% if mobike != false %}
+  # Enables the IKEv2 MOBIKE protocol defined by RFC 4555.
+  mobike={{ mobike }}
+{% endif %}
+
+conn net-net
+{% if leftip != false %}
+  # The IP address of the participant's public-network interface or one of several magic values.
+  left={{ leftip }}
+{% endif %}
+{% if leftsubnet != false %}
+  # Private subnet behind the participant, expressed as network/netmask
+  left={{ leftsubnet }}
+{% endif %}
+{% if leftid != false %}
+  # How the participant should be identified for authentication
+  left={{ leftid }}
+{% endif %}
+{% if leftfirewall != false %}
+  # whether the participant is doing forwarding-firewalling (including masquerading) using iptables or traffic from other participant subnet, which should be turned off for traffic to the other subnet) once the connection is established
+  leftfirewall={{ leftfirewall }}
+{% endif %}
+{% if rightip != false %}
+  # The IP address of the participant's public-network interface or one of several magic values.
+  right={{ rightip }}
+{% endif %}
+{% if rightsubnet != false %}
+  # Private subnet behind the participant, expressed as network/netmask
+  right={{ rightsubnet }}
+{% endif %}
+{% if rightid != false %}
+  # How the participant should be identified for authentication
+  right={{ rightid }}
+{% endif %}
+{% if auto != false %}
+  # What operation, if any, should be done automatically at IPsec startup.
+  auto=add
+{% endif %}

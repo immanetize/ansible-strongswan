@@ -1,0 +1,17 @@
+# defaults file for haproxy
+---
+ikelifetime=1h
+lifetime=20m
+margintime=3m
+keyingtries=1
+authby=secret
+keyexchange=ikev2
+mobike=no
+left=192.168.0.1
+leftsubnet=10.1.0.0/16
+leftid=@moon.strongswan.org
+leftfirewall=yes
+right=192.168.0.2
+rightsubnet=10.2.0.0/16
+rightid=@sun.strongswan.org
+psk=changeoninstall

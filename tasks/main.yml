@@ -1,0 +1,49 @@
+# tasks file for haproxy
+---
+- name: Install the Strongswan packages
+  apt: name={{ item }} state=present update_cache=yes
+  with_items: strongswan
+  environment: env
+  when: ansible_os_family == "Debian"
+
+- name: Update ipsec.conf file
+  template:
+    src: etc/ipsec.conf.j2
+    dest: /etc/ipsec.conf
+    owner: root
+    group: root
+    mode: 0640
+    validate: 'ipsec conftest --test %s'
+  notify: restart strongswan
+  tags:
+    - configuration
+
+- name: Update ipsec.secrets file
+  template:
+    src: etc/ipsec.secrets.j2
+    dest: /etc/ipsec.secrets
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart strongswan
+  tags:
+    - configuration
+
+- name: Update strongswan.conf file
+  template:
+    src: etc/strongswan.conf.j2
+    dest: /etc/strongswan.conf
+    owner: root
+    group: root
+    mode: 0640
+  notify: restart strongswan
+  tags:
+    - configuration
+
+- name: start and enable service
+  service:
+    name: strongswan
+    state: started
+    enabled: true
+  tags:
+    - configuration

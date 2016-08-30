@@ -1,0 +1,19 @@
+# meta file for haproxy
+---
+galaxy_info:
+  author: Janne Ojala
+  company:
+  description: Set up Strongswan site-to-site ipsec tunnel
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - precise
+        - trusty
+        - xenial
+  galaxy_tags:
+    - strongswan
+    - openswan
+    - ipsec
+    - vpn
+dependencies: []

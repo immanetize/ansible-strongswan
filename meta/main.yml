@@ -2,7 +2,7 @@
 ---
 galaxy_info:
   author: Janne Ojala
-  company:
+  company: Haahtela-kehitys Oy
   description: Set up Strongswan site-to-site ipsec tunnel
   license: MIT
   platforms:

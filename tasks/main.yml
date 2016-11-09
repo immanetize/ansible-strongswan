@@ -1,9 +1,9 @@
-# tasks file for haproxy
+# tasks file for strongswan
 ---
 - name: Install the Strongswan packages
   apt: name={{ item }} state=present update_cache=yes
   with_items: strongswan
-  environment: env
+#  environment: '{{env}}'
   when: ansible_os_family == "Debian"
 
 - name: Update ipsec.conf file
@@ -13,7 +13,7 @@
     owner: root
     group: root
     mode: 0640
-    validate: 'ipsec conftest --test %s'
+#    validate: 'ipsec conftest --test %s'
   notify: restart strongswan
   tags:
     - configuration

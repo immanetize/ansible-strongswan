@@ -1,25 +1,22 @@
-# test file for haproxy
+# test file for strongswan
 ---
 - hosts: localhost
   connection: local
   sudo: true
   roles:
     - ../../
-  vars:
-    # front-end section
-    haproxy_frontend:
-      - name: http
-        bind:
-          - listen: '0.0.0.0:80'
-        mode: http
-        default_backend: webservers
+ vars:
+    strongswan_conn:
+      - name: Test_site-to-site
+        psk: 12345678901234567890
+        leftip: 10.10.10.1
+        leftsubnet: 192.168.1.0/24
+        leftid: "test-gw1"
+        rightip: 10.10.100.1
+        rightsubnet: 192.168.2.0/24
+        rightid: "test-gw2"
+        ike: aes256-sha1-modp1024
+        esp: aes256-sha1-modp1024
+        leftfirewall: yes
+        auto: start
 
-    # back-end section
-    haproxy_backend:
-      - name: webservers
-        mode: http
-        balance: roundrobin
-        option:
-          - forwardfor
-          - 'httpchk HEAD / HTTP/1.1\r\nHost:localhost'
-        server: []

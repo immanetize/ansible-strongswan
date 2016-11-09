@@ -1,17 +1,20 @@
-# defaults file for haproxy
+# defaults file for strongswan
 ---
-ikelifetime=1h
-lifetime=20m
-margintime=3m
-keyingtries=1
-authby=secret
-keyexchange=ikev2
-mobike=no
-left=192.168.0.1
-leftsubnet=10.1.0.0/16
-leftid=@moon.strongswan.org
-leftfirewall=yes
-right=192.168.0.2
-rightsubnet=10.2.0.0/16
-rightid=@sun.strongswan.org
-psk=changeoninstall
+
+#config setup section
+config_setup_cachecrls: yes
+config_setup_uniqueids: no
+config_setup_charondebug: ""
+
+#config default section
+conn_default_ikelifetime: 1h
+conn_default_lifetime: 20m
+conn_default_margintime: 3m
+conn_default_keyingtries: 1
+conn_default_authby: secret
+conn_default_keyexchange: ikev2
+conn_default_mobike: no
+
+# conn section
+conn: []
+

@@ -1,4 +1,4 @@
-# handlers file for haproxy
+# handlers file for strongswan
 ---
 - name: restart strongswan
   service:

@@ -1,5 +1,2 @@
-# vars file for haproxy
+# vars file for strongswan
 ---
-haproxy_versions_supported:
-  - 1.5
-  - 1.6

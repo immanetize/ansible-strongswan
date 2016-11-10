@@ -1,13 +1,19 @@
 # /etc/ipsec.conf - strongSwan IPsec configuration file
 
 config setup
-    cachecrls=yes
-    uniqueids=no
-    charondebug="" 
-
-#config_setup_cachecrls: yes
-#config_setup_uniqueids=no
-#config_setup_charondebug=""
+{% if config_setup_cachecrls != false %}
+  cachecrls=yes
+{% else %}
+  cachecrls=no
+{% endif %}
+{% if config_setup_uniqueids != false %}
+  uniqueids=yes
+{% else %}
+  uniqueids=no
+{% endif %}
+{% if config_setup_charondebug != false %}
+    charondebug={{ config_setup_charondebug }} 
+{% endif %}
 
 conn %default
 {% if conn_default_ikelifetime != false %}
@@ -43,9 +49,9 @@ conn %default
 
 {% for connitem in strongswan_conn %}
 conn {{ connitem.name }}
-{% if connitem.leftip != false %}
+{% if connitem.left != false %}
   # The IP address of the participant's public-network interface or one of several magic values.
-  left={{ connitem.leftip }}
+  left={{ connitem.left }}
 {% endif %}
 {% if connitem.leftsubnet != false %}
   # Private subnet behind the participant, expressed as network/netmask
@@ -61,9 +67,9 @@ conn {{ connitem.name }}
 {% else %}
   leftfirewall=no
 {% endif %}
-{% if connitem.rightip != false %}
+{% if connitem.right != false %}
   # The IP address of the participant's public-network interface or one of several magic values.
-  right={{ connitem.rightip }}
+  right={{ connitem.right }}
 {% endif %}
 {% if connitem.rightsubnet != false %}
   # Private subnet behind the participant, expressed as network/netmask

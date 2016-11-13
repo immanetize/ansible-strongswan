@@ -87,6 +87,10 @@ conn {{ connitem.name }}
   # Comma-separated list of ESP encryption/authentication algorithms to be used for the connection
   esp={{ connitem.esp }}
 {% endif %}
+{% if connitem.keyexchange is not none %}
+  # Method of key exchange; which protocol should be used to initialize the connection.
+  keyexchange={{ connitem.keyexchange }}
+{% endif %}
 {% if connitem.auto != false %}
   # What operation, if any, should be done automatically at IPsec startup.
   auto={{ connitem.auto }}

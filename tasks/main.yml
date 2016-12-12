@@ -6,6 +6,13 @@
 #  environment: '{{env}}'
   when: ansible_os_family == "Debian"
 
+- name: Install the Strongswan packages
+  apt: name={{ item }} state=present update_cache=yes
+  with_items: 
+    - strongswan
+    - python-firewall
+  when: ansible_distribution == "Fedora"
+
 - name: Update ipsec.conf file
   template:
     src: etc/ipsec.conf.j2
